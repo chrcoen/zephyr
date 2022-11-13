@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: © 2022 Christoph Coenen <chrcoen@gmail.com>
+
+config ESIMP
+	bool "Embedded Simulation Platform Support"
+	help
+	  This option enables spport for the Embedded Simulation Platform.

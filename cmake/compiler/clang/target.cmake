@@ -15,10 +15,12 @@ if(DEFINED TOOLCHAIN_HOME)
   set(find_program_clang_args PATHS ${TOOLCHAIN_HOME} NO_DEFAULT_PATH)
 endif()
 
-find_program(CMAKE_C_COMPILER   clang   ${find_program_clang_args})
-find_program(CMAKE_CXX_COMPILER clang++ ${find_program_clang_args})
+find_program(CMAKE_C_COMPILER   clang-11   ${find_program_clang_args})
+find_program(CMAKE_CXX_COMPILER clang++-11 ${find_program_clang_args})
+set(CMAKE_OBJDUMP "/usr/bin/llvm-objdump-11")
 
-if(NOT "${ARCH}" STREQUAL "posix")
+
+if(NOT ("${ARCH}" STREQUAL "posix" OR "${ARCH}" STREQUAL "systemc"))
   include(${ZEPHYR_BASE}/cmake/gcc-m-cpu.cmake)
 
   if("${ARCH}" STREQUAL "arm")

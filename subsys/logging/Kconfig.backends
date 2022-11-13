@@ -216,6 +216,11 @@ config LOG_BACKEND_NATIVE_POSIX
 	help
 	  Enable backend in native_posix
 
+config LOG_BACKEND_SYSTEMC
+	bool "Enable systemc backend"
+	depends on ARCH_SYSTEMC
+	help
+	  Enable backend in systemc
 if LOG_BACKEND_NATIVE_POSIX
 
 backend = NATIVE_POSIX

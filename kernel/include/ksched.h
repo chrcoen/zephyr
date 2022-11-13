@@ -13,6 +13,11 @@
 #include <zephyr/tracing/tracing.h>
 #include <stdbool.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 BUILD_ASSERT(K_LOWEST_APPLICATION_THREAD_PRIO
 	     >= K_HIGHEST_APPLICATION_THREAD_PRIO);
 
@@ -63,6 +68,8 @@ void z_sched_start(struct k_thread *thread);
 void z_ready_thread(struct k_thread *thread);
 void z_requeue_current(struct k_thread *curr);
 struct k_thread *z_swap_next_thread(void);
+
+
 void z_thread_abort(struct k_thread *thread);
 
 static inline void z_pend_curr_unlocked(_wait_q_t *wait_q, k_timeout_t timeout)
@@ -364,6 +371,7 @@ int z_sched_wait(struct k_spinlock *lock, k_spinlock_key_t key,
 		 _wait_q_t *wait_q, k_timeout_t timeout, void **data);
 
 
+
 /** @brief Halt thread cycle usage accounting.
  *
  * Halts the accumulation of thread cycle usage and adds the current
@@ -404,5 +412,10 @@ static inline void z_sched_usage_switch(struct k_thread *thread)
 	z_sched_usage_start(thread);
 #endif
 }
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* ZEPHYR_KERNEL_INCLUDE_KSCHED_H_ */

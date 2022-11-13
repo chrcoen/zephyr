@@ -187,6 +187,8 @@ source "drivers/serial/Kconfig.gd32"
 
 source "drivers/serial/Kconfig.test"
 
+source "drivers/serial/Kconfig.esimp"
+
 source "drivers/serial/Kconfig.neorv32"
 
 source "drivers/serial/Kconfig.xen"

@@ -1,0 +1,11 @@
+# STM32 GPIO configuration
+
+# Copyright (c) 2016 Open-RnD Sp. z o.o.
+# SPDX-License-Identifier: Apache-2.0
+
+config GPIO_ESIMP
+	bool "GPIO Driver for ESIMP"
+	depends on ARCH_SYSTEMC
+	help
+	  Enable GPIO driver for ESIMP
+

@@ -1,0 +1,16 @@
+{
+    "name": "Zephyr development",
+    "image": "esimp:latest",
+    "extensions": [
+        "ms-vscode.cpptools",
+        "trond-snekvik.devicetree",
+        "trond-snekvik.kconfig-lang",
+        "editorconfig.editorconfig",
+        "mhutchie.git-graph",
+        "twxs.cmake"
+    ],
+    "remoteUser": "user",
+    "remoteEnv": {"ZEPHYR_BASE": "/home/user/workspace/zephyrproject/zephyr", "SHELL": "/bin/bash"},
+    "workspaceMount": "source=${localWorkspaceFolder}/..,target=/home/user/workspace/zephyrproject,type=bind,consistency=delegated",
+    "workspaceFolder": "/home/user/workspace/zephyrproject/zephyr"
+}

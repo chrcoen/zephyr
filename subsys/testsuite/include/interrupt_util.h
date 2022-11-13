@@ -154,6 +154,15 @@ static inline void trigger_irq(int irq)
 	hw_irq_ctrl_raise_im_from_sw(irq);
 }
 
+#elif defined(CONFIG_ARCH_SYSTEMC)
+extern void arch_trigger_irq_from_sw(int irq);
+
+static inline void trigger_irq(int irq)
+{
+	arch_trigger_irq_from_sw(irq);
+}
+
+
 #elif defined(CONFIG_RISCV)
 static inline void trigger_irq(int irq)
 {

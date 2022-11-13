@@ -507,7 +507,7 @@ do {                                                                    \
 		"\n\t.equ\t" #name "," #value       \
 		"\n\t.type\t" #name ",%object")
 
-#elif defined(CONFIG_ARCH_POSIX)
+#elif defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 #define GEN_ABSOLUTE_SYM(name, value)               \
 	__asm__(".globl\t" #name "\n\t.equ\t" #name \
 		",%c0"                              \

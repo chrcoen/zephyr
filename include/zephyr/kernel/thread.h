@@ -13,6 +13,10 @@
 
 #include <zephyr/kernel/stats.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * @typedef k_thread_entry_t
  * @brief Thread entry point function type.
@@ -330,5 +334,11 @@ typedef struct k_thread *k_tid_t;
 void z_init_cpu(int id);
 void z_sched_ipi(void);
 void z_smp_start_cpu(int id);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif

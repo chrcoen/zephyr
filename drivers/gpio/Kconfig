@@ -111,6 +111,8 @@ source "drivers/gpio/Kconfig.pca953x"
 
 source "drivers/gpio/Kconfig.fxl6408"
 
+source "drivers/gpio/Kconfig.esimp"
+
 source "drivers/gpio/Kconfig.andes_atcgpio100"
 
 source "drivers/gpio/Kconfig.neorv32"

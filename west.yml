@@ -233,6 +233,9 @@ manifest:
       path: modules/tee/tf-m/tf-m-tests
       groups:
         - tee
+    - name: esimp
+      path: modules/esimp
+      revision: 5e48801f2b7daed9508f854cf63b73f15cb4b6d5
     - name: psa-arch-tests
       revision: a81f9da287569f169d60026916952641b233faa8
       path: modules/tee/tf-m/psa-arch-tests

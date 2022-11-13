@@ -1,0 +1,12 @@
+# STM32 UART configuration
+
+# Copyright (c) 2016 Open-RnD Sp. z o.o.
+# SPDX-License-Identifier: Apache-2.0
+
+
+config UART_ESIMP
+	bool "ESIMP MCU serial driver"
+	select SERIAL_HAS_DRIVER
+	select SERIAL_SUPPORT_INTERRUPT
+	help
+	  This option enables the ESIMP UART driver.

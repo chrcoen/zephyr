@@ -1,0 +1,41 @@
+/*
+ * Copyright (c) 2019 Jan Van Winkel (jan.van_winkel@dxplore.eu)
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/dts-v1/;
+#include "skeleton.dtsi"
+
+/ {
+	#address-cells = < 0x1 >;
+	#size-cells = < 0x1 >;
+	compatible = "simple-bus";
+	interrupt-parent = < &nvic >;
+	nvic: interrupt-controller@e000e100 {
+		#address-cells = < 0x1 >;
+		compatible = "arm,v7m-nvic";
+		reg = < 0xe000e100 0xc00 >;
+		interrupt-controller;
+		#interrupt-cells = < 0x2 >;
+		arm,num-irq-priority-bits = < 0x4 >;
+		phandle = < 0x1 >;
+	};
+	uart0: serial@40000000 {
+		compatible = "esimp,uart";
+		reg = < 0x40000000 0x400 >;
+		status = "disabled";
+		interrupts = < 0x25 0x0 >;
+		label = "uart0";
+		current-speed = < 0x1c200 >;
+	};
+	gpioa: gpio@48000000 {
+		compatible = "esimp,gpio";
+		status = "disabled";
+		gpio-controller;
+		#gpio-cells = < 0x2 >;
+		reg = < 0x48000000 0x400 >;
+		label = "gpioa";
+	};
+};
+

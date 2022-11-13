@@ -29,6 +29,8 @@
 #include <zephyr/arch/mips/arch.h>
 #elif defined(CONFIG_ARCH_POSIX)
 #include <zephyr/arch/posix/arch.h>
+#elif defined(CONFIG_ARCH_SYSTEMC)
+#include <zephyr/arch/systemc/arch.h>
 #elif defined(CONFIG_SPARC)
 #include <zephyr/arch/sparc/arch.h>
 #else

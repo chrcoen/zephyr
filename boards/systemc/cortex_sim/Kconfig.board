@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: Apache-2.0
+
+
+config BOARD_CORTEX_SIM
+	bool "Cortex-m simulation"
+	select 64BIT
+	select ESIMP
+
+

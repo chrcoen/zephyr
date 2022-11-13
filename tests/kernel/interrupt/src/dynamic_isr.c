@@ -72,7 +72,7 @@ void test_isr_dynamic(void)
 #define IV_IRQS 32	/* start of vectors available for x86 IRQs */
 #define TEST_IRQ_DYN_LINE 16
 
-#elif defined(CONFIG_ARCH_POSIX)
+#elif defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 #define TEST_IRQ_DYN_LINE 5
 #endif
 

@@ -96,6 +96,8 @@
  * unless TICK_IRQ is defined here for them
  */
 #endif /* defined(CONFIG_ARCH_POSIX) */
+#elif defined(CONFIG_ARCH_SYSTEMC)
+#define TICK_IRQ 0
 #else
 /* generate an error */
 #error Timer type is not defined for this platform
@@ -369,7 +371,7 @@ static void _test_kernel_cpu_idle(int atomic)
 	/* Align to a "ms boundary". */
 	tms = k_uptime_get_32();
 	while (tms == k_uptime_get_32()) {
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 		k_busy_wait(50);
 #endif
 	}
@@ -456,12 +458,18 @@ static void _test_kernel_interrupts(disable_int_func disable_int,
 #if defined(CONFIG_ARCH_POSIX)
 		k_busy_wait(1000);
 #endif
+#if defined(CONFIG_ARCH_SYSTEMC)
+		k_busy_wait(10);
+#endif
 	}
 
 	tick++;
 	while (sys_clock_tick_get_32() == tick) {
 #if defined(CONFIG_ARCH_POSIX)
 		k_busy_wait(1000);
+#endif
+#if defined(CONFIG_ARCH_SYSTEMC)
+		k_busy_wait(10);
 #endif
 		count++;
 	}
@@ -481,6 +489,9 @@ static void _test_kernel_interrupts(disable_int_func disable_int,
 		sys_clock_tick_get_32();
 #if defined(CONFIG_ARCH_POSIX)
 		k_busy_wait(1000);
+#endif
+#if defined(CONFIG_ARCH_SYSTEMC)
+		k_busy_wait(10);
 #endif
 	}
 
@@ -505,6 +516,9 @@ static void _test_kernel_interrupts(disable_int_func disable_int,
 		sys_clock_tick_get_32();
 #if defined(CONFIG_ARCH_POSIX)
 		k_busy_wait(1000);
+#endif
+#if defined(CONFIG_ARCH_SYSTEMC)
+		k_busy_wait(10);
 #endif
 	}
 

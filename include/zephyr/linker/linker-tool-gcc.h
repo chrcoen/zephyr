@@ -57,6 +57,8 @@
 	OUTPUT_ARCH("mips")
 #elif defined(CONFIG_ARCH_POSIX)
 	/* Not needed */
+#elif defined(CONFIG_ARCH_SYSTEMC)
+    /* Not needed */
 #elif defined(CONFIG_SPARC)
 	OUTPUT_FORMAT("elf32-sparc")
 #else
@@ -89,6 +91,8 @@
  */
 #if defined(CONFIG_ARCH_POSIX)
 #define GROUP_LINK_IN(where)
+#elif defined(CONFIG_ARCH_SYSTEMC)
+#define GROUP_LINK_IN(where)
 #elif !defined(Z_VM_KERNEL)
 #define GROUP_LINK_IN(where) > where
 #endif
@@ -113,6 +117,8 @@
  */
 #if defined(CONFIG_ARCH_POSIX)
 #define GROUP_ROM_LINK_IN(vregion, lregion)
+#elif defined(CONFIG_ARCH_SYSTEMC)
+#define GROUP_ROM_LINK_IN(vregion, lregion)
 #elif defined(Z_VM_KERNEL)
 #define GROUP_ROM_LINK_IN(vregion, lregion) > vregion AT > lregion
 #else
@@ -133,6 +139,8 @@
  */
 #if defined(CONFIG_ARCH_POSIX)
 #define GROUP_DATA_LINK_IN(vregion, lregion)
+#elif defined(CONFIG_ARCH_SYSTEMC)
+#define GROUP_DATA_LINK_IN(vregion, lregion)
 #elif defined(CONFIG_XIP) || defined(Z_VM_KERNEL)
 #define GROUP_DATA_LINK_IN(vregion, lregion) > vregion AT > lregion
 #else
@@ -150,6 +158,8 @@
  *		  corresponds to physical location)
  */
 #if defined(CONFIG_ARCH_POSIX)
+#define GROUP_NOLOAD_LINK_IN(vregion, lregion)
+#elif defined(CONFIG_ARCH_SYSTEMC)
 #define GROUP_NOLOAD_LINK_IN(vregion, lregion)
 #elif defined(Z_VM_KERNEL)
 #define GROUP_NOLOAD_LINK_IN(vregion, lregion) > vregion AT > lregion

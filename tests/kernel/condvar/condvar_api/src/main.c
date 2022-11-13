@@ -29,7 +29,7 @@ K_MUTEX_DEFINE(test_mutex);
 
 ZTEST_BMEM int woken;
 ZTEST_BMEM int timeout;
-ZTEST_BMEM int index[TOTAL_THREADS_WAITING];
+ZTEST_BMEM int index_test[TOTAL_THREADS_WAITING];
 ZTEST_BMEM int count;
 
 struct k_condvar multiple_condvar[TOTAL_THREADS_WAITING];
@@ -358,12 +358,14 @@ void test_multiple_condvar_wait_wake(void)
 	woken = 1;
 	timeout = K_TICKS_FOREVER;
 
+	index_test[0] = 0;
+
 	for (int i = 0; i < TOTAL_THREADS_WAITING; i++) {
-		index[i] = i;
+		index_test[i] = i;
 
 		k_thread_create(&multiple_tid[i], multiple_stack[i],
 				STACK_SIZE, condvar_multiple_wait_wake_task,
-				&timeout, &index[i], NULL, PRIO_WAIT,
+				&timeout, &index_test[i], NULL, PRIO_WAIT,
 				K_USER | K_INHERIT_PERMS, K_NO_WAIT);
 	}
 
@@ -373,7 +375,7 @@ void test_multiple_condvar_wait_wake(void)
 	for (int i = 0; i < TOTAL_THREADS_WAITING; i++) {
 		k_thread_create(&multiple_wake_tid[i], multiple_wake_stack[i],
 				STACK_SIZE, condvar_multiple_wake_task,
-				&woken, &index[i], NULL, PRIO_WAKE,
+				&woken, &index_test[i], NULL, PRIO_WAKE,
 				K_USER | K_INHERIT_PERMS, K_NO_WAIT);
 	}
 

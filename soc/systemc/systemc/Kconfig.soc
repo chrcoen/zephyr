@@ -1,0 +1,9 @@
+# SPDX-License-Identifier: Apache-2.0
+
+
+config SOC_SYSTEMC
+	bool "systemc"
+	select ARCH_SYSTEMC
+	help
+      Welcome to the config bukkake
+

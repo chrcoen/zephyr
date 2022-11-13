@@ -6,7 +6,7 @@
 
 #include <ztest.h>
 
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 #define ALIGN_MS_BOUNDARY		       \
 	do {				       \
 		uint32_t t = k_uptime_get_32();   \
@@ -55,7 +55,7 @@ void test_clock_uptime(void)
 	/**TESTPOINT: uptime elapse*/
 	t64 = k_uptime_get();
 	while (k_uptime_get() < (t64 + 5)) {
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 		k_busy_wait(50);
 #endif
 	}
@@ -63,7 +63,7 @@ void test_clock_uptime(void)
 	/**TESTPOINT: uptime elapse lower 32-bit*/
 	t32 = k_uptime_get_32();
 	while (k_uptime_get_32() < (t32 + 5)) {
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 		k_busy_wait(50);
 #endif
 	}
@@ -76,7 +76,7 @@ void test_clock_uptime(void)
 	/**TESTPOINT: uptime delta*/
 	d64 = k_uptime_delta(&d64);
 	while (k_uptime_delta(&d64) == 0) {
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 		k_busy_wait(50);
 #endif
 	}
@@ -132,7 +132,7 @@ void test_clock_cycle_32(void)
 	/*break if cycle counter wrap around*/
 	while (k_cycle_get_32() > c32 &&
 	       k_cycle_get_32() < (c32 + k_ticks_to_cyc_floor32(1))) {
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 		k_busy_wait(50);
 #endif
 	}
@@ -142,7 +142,7 @@ void test_clock_cycle_32(void)
 	ALIGN_MS_BOUNDARY;
 	t32 = k_uptime_get_32();
 	while (t32 == k_uptime_get_32()) {
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 		k_busy_wait(50);
 #endif
 	}

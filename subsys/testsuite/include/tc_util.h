@@ -179,6 +179,8 @@ static inline void test_time_ms(void)
 	LOG_PANIC(); \
 	posix_exit(result); \
 } while (0)
+#elif defined(CONFIG_ARCH_SYSTEMC)
+#define TC_END_POST(result) systemc_exit(result)
 #else
 #define TC_END_POST(result)
 #endif /* CONFIG_ARCH_POSIX */

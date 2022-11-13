@@ -184,6 +184,11 @@ void z_thread_monitor_exit(struct k_thread *thread)
 }
 #endif
 
+
+__weak void arch_thread_name_set(struct k_thread *thread)
+{
+}
+
 int z_impl_k_thread_name_set(struct k_thread *thread, const char *value)
 {
 #ifdef CONFIG_THREAD_NAME
@@ -195,6 +200,8 @@ int z_impl_k_thread_name_set(struct k_thread *thread, const char *value)
 	thread->name[CONFIG_THREAD_MAX_NAME_LEN - 1] = '\0';
 
 	SYS_PORT_TRACING_OBJ_FUNC(k_thread, name_set, thread, 0);
+
+	arch_thread_name_set(thread);
 
 	return 0;
 #else
@@ -472,10 +479,10 @@ static char *setup_thread_stack(struct k_thread *new_thread,
 	 */
 	stack_ptr = (char *)stack + stack_obj_size;
 
-	LOG_DBG("stack %p for thread %p: obj_size=%zu buf_start=%p "
-		" buf_size %zu stack_ptr=%p",
-		stack, new_thread, stack_obj_size, stack_buf_start,
-		stack_buf_size, stack_ptr);
+	// LOG_DBG("stack %p for thread %p: obj_size=%zu buf_start=%p "
+	// 	" buf_size %zu stack_ptr=%p",
+	// 	stack, new_thread, stack_obj_size, stack_buf_start,
+	// 	stack_buf_size, stack_ptr);
 
 #ifdef CONFIG_INIT_STACKS
 	memset(stack_buf_start, 0xaa, stack_buf_size);
@@ -561,6 +568,17 @@ char *z_setup_new_thread(struct k_thread *new_thread,
 	__ASSERT_NO_MSG(!arch_mem_coherent(stack));
 #endif
 
+#ifdef CONFIG_THREAD_NAME
+	if (name != NULL) {
+		strncpy(new_thread->name, name,
+			CONFIG_THREAD_MAX_NAME_LEN - 1);
+		/* Ensure NULL termination, truncate if longer */
+		new_thread->name[CONFIG_THREAD_MAX_NAME_LEN - 1] = '\0';
+	} else {
+		new_thread->name[0] = '\0';
+	}
+#endif
+
 	arch_new_thread(new_thread, stack, stack_ptr, entry, p1, p2, p3);
 
 	/* static threads overwrite it afterwards with real value */
@@ -589,16 +607,6 @@ char *z_setup_new_thread(struct k_thread *new_thread,
 	new_thread->next_thread = _kernel.threads;
 	_kernel.threads = new_thread;
 	k_spin_unlock(&z_thread_monitor_lock, key);
-#endif
-#ifdef CONFIG_THREAD_NAME
-	if (name != NULL) {
-		strncpy(new_thread->name, name,
-			CONFIG_THREAD_MAX_NAME_LEN - 1);
-		/* Ensure NULL termination, truncate if longer */
-		new_thread->name[CONFIG_THREAD_MAX_NAME_LEN - 1] = '\0';
-	} else {
-		new_thread->name[0] = '\0';
-	}
 #endif
 #ifdef CONFIG_SCHED_CPU_MASK
 	if (IS_ENABLED(CONFIG_SCHED_CPU_MASK_PIN_ONLY)) {

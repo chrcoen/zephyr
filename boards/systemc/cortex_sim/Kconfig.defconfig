@@ -1,0 +1,45 @@
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_CORTEX_SIM
+
+config BOARD
+	default "cortex_sim"
+
+config BUILD_OUTPUT_EXE
+	default y
+
+config NUM_IRQS
+	int
+	default 100
+
+config UART_ESIMP
+	default y
+
+config GPIO_ESIMP
+	default y
+
+if LOG
+
+config LOG_BACKEND_SYSTEMC
+	default y
+
+# For native_posix we can log synchronously without any problem
+# Doing so will be nicer for debugging
+choice LOG_MODE
+	default LOG_MODE_IMMEDIATE
+endchoice
+
+endif # LOG
+
+if CONSOLE
+
+config SYSTEMC_CONSOLE
+	bool
+	default y if !SERIAL
+
+endif # CONSOLE
+
+
+endif # BOARD_CORTEX_SIM
+
+

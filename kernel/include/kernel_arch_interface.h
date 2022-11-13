@@ -77,6 +77,8 @@ void arch_new_thread(struct k_thread *thread, k_thread_stack_t *stack,
 		     char *stack_ptr, k_thread_entry_t entry,
 		     void *p1, void *p2, void *p3);
 
+void arch_thread_name_set(struct k_thread *thread);
+
 #ifdef CONFIG_USE_SWITCH
 /** Cooperative context switch primitive
  *

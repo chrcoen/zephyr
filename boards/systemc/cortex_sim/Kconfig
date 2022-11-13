@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: Apache-2.0
+
+config CONFIG_BOARD_CORTEX_SIM
+	bool
+	select SYSTEMC_TIMER
+	select SYSTEMC_CONSOLE
+

@@ -28,7 +28,7 @@
 
 static K_THREAD_STACK_DEFINE(alt_stack, STACKSIZE);
 
-#if defined(CONFIG_STACK_SENTINEL) && !defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_STACK_SENTINEL) && !defined(CONFIG_ARCH_POSIX) && !defined(CONFIG_ARCH_SYSTEMC)
 #define OVERFLOW_STACKSIZE (STACKSIZE / 2)
 static k_thread_stack_t *overflow_stack =
 		alt_stack + (STACKSIZE - OVERFLOW_STACKSIZE);
@@ -168,7 +168,7 @@ void entry_arbitrary_reason_negative(void *p1, void *p2, void *p3)
 	rv = TC_FAIL;
 }
 
-#ifndef CONFIG_ARCH_POSIX
+#if !defined(CONFIG_ARCH_POSIX) && !defined(CONFIG_ARCH_SYSTEMC)
 #ifdef CONFIG_STACK_SENTINEL
 __no_optimization void blow_up_stack(void)
 {
@@ -295,7 +295,7 @@ void test_fatal(void)
 	 */
 	k_thread_priority_set(_current, K_PRIO_PREEMPT(MAIN_PRIORITY));
 
-#ifndef CONFIG_ARCH_POSIX
+#if !defined(CONFIG_ARCH_POSIX) && !defined(CONFIG_ARCH_SYSTEMC)
 	TC_PRINT("test alt thread 1: generic CPU exception\n");
 	k_thread_create(&alt_thread, alt_stack,
 			K_THREAD_STACK_SIZEOF(alt_stack),
@@ -367,7 +367,7 @@ void test_fatal(void)
 	k_thread_abort(&alt_thread);
 	zassert_not_equal(rv, TC_FAIL, "thread was not aborted");
 
-#ifndef CONFIG_ARCH_POSIX
+#if !defined(CONFIG_ARCH_POSIX) && !defined(CONFIG_ARCH_SYSTEM)
 
 #ifdef CONFIG_STACK_SENTINEL
 	TC_PRINT("test stack sentinel overflow - timer irq\n");
@@ -441,7 +441,8 @@ void test_main(void)
 	 * Same applies for some variables needed during exception
 	 * processing.
 	 */
-#if defined(CONFIG_STACK_SENTINEL) && !defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_STACK_SENTINEL) && !defined(CONFIG_ARCH_POSIX) && !defined(CONFIG_ARCH_SYSTEM)
+
 
 	obj_size = K_THREAD_STACK_SIZEOF(overflow_stack);
 #if defined(CONFIG_USERSPACE)

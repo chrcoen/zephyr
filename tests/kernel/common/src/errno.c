@@ -118,7 +118,7 @@ void test_thread_context(void)
 
 void thread_entry_user(void *p1, void *p2, void *p3)
 {
-#ifdef CONFIG_ARCH_POSIX
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 	/* The errno in native posix will be handled by native
 	 * operation system, so we skip it.
 	 */

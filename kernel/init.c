@@ -106,6 +106,7 @@ void __weak z_early_memcpy(void *dst, const void *src, size_t n)
  *
  * This routine clears the BSS region, so all bytes are 0.
  */
+#if !defined(CONFIG_ARCH_SYSTEMC)
 __boot_func
 void z_bss_zero(void)
 {
@@ -135,6 +136,7 @@ void z_bss_zero(void)
 		       ((uintptr_t) &__gcov_bss_end - (uintptr_t) &__gcov_bss_start));
 #endif
 }
+#endif /* CONFIG_ARCH_SYSTEMC */
 
 #ifdef CONFIG_LINKER_USE_BOOT_SECTION
 /**
@@ -216,7 +218,7 @@ static void bg_thread_main(void *unused1, void *unused2, void *unused3)
 #endif
 	boot_banner();
 
-#if defined(CONFIG_CPLUSPLUS) && !defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_CPLUSPLUS) && !defined(CONFIG_ARCH_POSIX) && !defined(CONFIG_ARCH_SYSTEMC)
 	void z_cpp_init_static(void);
 	z_cpp_init_static();
 #endif

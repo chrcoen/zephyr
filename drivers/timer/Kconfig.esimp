@@ -1,0 +1,9 @@
+
+config SYSTEMC_TIMER
+	bool "systemc timer driver"
+	default y
+	depends on BOARD_CORTEX_SIM
+	select SYSTEM_TIMER_HAS_DISABLE_SUPPORT
+	help
+	  This module implements a kernel device driver for the systemc HW timer
+	  model

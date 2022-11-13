@@ -1,0 +1,12 @@
+# General configuration options
+
+# Copyright (c) 2017 Intel Corporation
+# SPDX-License-Identifier: Apache-2.0
+
+menu "POSIX (native) Options"
+	depends on ARCH_SYSTEMC
+
+config ARCH
+	default "systemc"
+
+endmenu

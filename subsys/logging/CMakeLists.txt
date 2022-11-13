@@ -55,6 +55,11 @@ if(NOT CONFIG_LOG_MODE_MINIMAL)
   )
 
   zephyr_sources_ifdef(
+    CONFIG_LOG_BACKEND_SYSTEMC
+    log_backend_systemc.c
+  )
+
+  zephyr_sources_ifdef(
     CONFIG_LOG_BACKEND_XTENSA_SIM
     log_backend_xtensa_sim.c
   )

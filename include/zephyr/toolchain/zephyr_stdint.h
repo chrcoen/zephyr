@@ -39,8 +39,13 @@
 #define __UINT_FAST32_TYPE__ __UINT32_TYPE__
 #define __INT_LEAST32_TYPE__ __INT32_TYPE__
 #define __UINT_LEAST32_TYPE__ __UINT32_TYPE__
+#if defined __x86_64__ && !defined __ILP32__
+#define __INT64_TYPE__ long int
+#define __UINT64_TYPE__ unsigned long int
+#else
 #define __INT64_TYPE__ long long int
 #define __UINT64_TYPE__ unsigned long long int
+#endif
 #define __INT_FAST64_TYPE__ __INT64_TYPE__
 #define __UINT_FAST64_TYPE__ __UINT64_TYPE__
 #define __INT_LEAST64_TYPE__ __INT64_TYPE__

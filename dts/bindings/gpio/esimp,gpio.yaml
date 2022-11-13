@@ -1,0 +1,11 @@
+description: ESIMP GPIO
+
+compatible: "esimp,gpio"
+
+include: [gpio-controller.yaml, base.yaml]
+
+properties:
+    label:
+        required: true
+
+

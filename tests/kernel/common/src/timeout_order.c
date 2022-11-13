@@ -66,7 +66,7 @@ void test_timeout_order(void)
 
 	/* sync on tick */
 	while (uptime == k_uptime_get_32()) {
-#if defined(CONFIG_ARCH_POSIX)
+#if defined(CONFIG_ARCH_POSIX) || defined(CONFIG_ARCH_SYSTEMC)
 		k_busy_wait(50);
 #endif
 	}

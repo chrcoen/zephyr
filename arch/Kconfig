@@ -140,6 +140,19 @@ config ARCH_POSIX
 	help
 	  POSIX (native) architecture
 
+config ARCH_SYSTEMC
+	bool
+	select ARCH_IS_SET
+	select HAS_DTS
+	select ATOMIC_OPERATIONS_BUILTIN
+	select ARCH_HAS_CUSTOM_SWAP_TO_MAIN
+	select ARCH_HAS_CUSTOM_BUSY_WAIT
+	select ARCH_HAS_THREAD_ABORT
+	select NATIVE_APPLICATION
+	help
+	  SystemC simulation
+
+
 config ARCH_IS_SET
 	bool
 	help
